@@ -23,12 +23,6 @@ public class KafkaSearchConsumer {
     )
     public void consume(SearchEvent event) {
 
-        System.out.println(
-                "Thread: " + Thread.currentThread()
-                        + " virtual="
-                        + Thread.currentThread().isVirtual()
-        );
-
         HotelSearch search = new HotelSearch(
                 event.searchId(),
                 event.hotelId(),
