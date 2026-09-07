@@ -3,6 +3,7 @@ package com.challenge.hotel.infrastructure.rest.dto;
 import com.challenge.hotel.infrastructure.rest.validation.ValidDateRange;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ public record SearchRequestDTO(
         @NotBlank(message = "hotelId must not be blank")
         String hotelId,
 
+        @FutureOrPresent(message = "checkIn must be today or in the future")
         @Schema(
                 description = "Check-in date",
                 example = "29/12/2026"
