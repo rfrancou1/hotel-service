@@ -1,6 +1,6 @@
 package com.challenge.hotel.infrastructure.persistence.adapter;
 
-import com.challenge.hotel.application.port.out.SearchRepository;
+import com.challenge.hotel.domain.repository.SearchRepository;
 import com.challenge.hotel.domain.model.HotelSearch;
 import com.challenge.hotel.infrastructure.persistence.entity.SearchEntity;
 import com.challenge.hotel.infrastructure.persistence.repository.SpringDataSearchRepository;

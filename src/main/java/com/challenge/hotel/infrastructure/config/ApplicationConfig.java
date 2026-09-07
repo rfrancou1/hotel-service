@@ -4,7 +4,7 @@ import com.challenge.hotel.application.port.in.CountSearchUseCase;
 import com.challenge.hotel.application.port.in.CreateSearchUseCase;
 import com.challenge.hotel.application.port.in.SaveSearchUseCase;
 import com.challenge.hotel.application.port.out.SearchEventPublisher;
-import com.challenge.hotel.application.port.out.SearchRepository;
+import com.challenge.hotel.domain.repository.SearchRepository;
 import com.challenge.hotel.application.service.CountSearchService;
 import com.challenge.hotel.application.service.CreateSearchService;
 import com.challenge.hotel.application.service.SaveSearchService;

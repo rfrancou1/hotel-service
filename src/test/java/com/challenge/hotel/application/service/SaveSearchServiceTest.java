@@ -1,6 +1,6 @@
 package com.challenge.hotel.application.service;
 
-import com.challenge.hotel.application.port.out.SearchRepository;
+import com.challenge.hotel.domain.repository.SearchRepository;
 import com.challenge.hotel.domain.model.HotelSearch;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

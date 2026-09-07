@@ -1,4 +1,4 @@
-package com.challenge.hotel.application.port.out;
+package com.challenge.hotel.domain.repository;
 
 import com.challenge.hotel.domain.model.HotelSearch;
 
