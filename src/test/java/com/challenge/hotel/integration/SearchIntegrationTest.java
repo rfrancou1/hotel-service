@@ -9,6 +9,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.client.RestClient;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -17,6 +18,8 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import java.time.Duration;
 import java.util.UUID;
+import java.util.concurrent.locks.LockSupport;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
                 "spring.sql.init.mode=never"
         }
 )
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class SearchIntegrationTest {
 
     @Container
@@ -188,24 +192,22 @@ class SearchIntegrationTest {
                 .body(CountSearchResponse.class);
     }
 
-    private void waitUntilSearchIsPersisted(UUID searchId) {
-        long deadline =
-                System.nanoTime() + Duration.ofSeconds(10).toNanos();
+    private void waitUntil(BooleanSupplier condition) {
+        long deadline = System.nanoTime() + Duration.ofSeconds(10).toNanos();
 
         while (System.nanoTime() < deadline) {
-            if (repository.existsById(searchId)) {
+            if (condition.getAsBoolean()) {
                 return;
             }
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException exception) {
-                Thread.currentThread().interrupt();
-                throw new IllegalStateException(exception);
-            }
+            LockSupport.parkNanos(Duration.ofMillis(100).toNanos());
         }
 
-        fail("Search was not persisted in time: " + searchId);
+        fail("Condition was not met within timeout");
+    }
+
+    private void waitUntilSearchIsPersisted(UUID searchId) {
+        waitUntil(() -> repository.existsById(searchId));
     }
 
     private record CreateSearchResponse(
