@@ -4,12 +4,10 @@ import com.challenge.hotel.application.model.SearchCommand;
 import com.challenge.hotel.application.port.in.CreateSearchUseCase;
 import com.challenge.hotel.application.port.out.SearchEventPublisher;
 import com.challenge.hotel.domain.model.HotelSearch;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.UUID;
 
-@Service
 public class CreateSearchService implements CreateSearchUseCase {
 
     private final SearchEventPublisher eventPublisher;

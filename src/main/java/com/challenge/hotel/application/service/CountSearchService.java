@@ -5,12 +5,10 @@ import com.challenge.hotel.application.port.in.CountSearchUseCase;
 import com.challenge.hotel.application.port.out.SearchRepository;
 import com.challenge.hotel.domain.exception.SearchNotFoundException;
 import com.challenge.hotel.domain.model.HotelSearch;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.UUID;
 
-@Service
 public class CountSearchService implements CountSearchUseCase {
 
     private final SearchRepository repository;
