@@ -163,4 +163,11 @@ class SearchControllerTest {
 
         verifyNoInteractions(createSearchUseCase);
     }
+
+    @Test
+    void shouldReturnNotFoundWhenSearchIdIsInvalid() throws Exception {
+        mockMvc.perform(get("/count")
+                        .param("searchId", "nonexistent-id-xyz-99999"))
+                .andExpect(status().isNotFound());
+    }
 }

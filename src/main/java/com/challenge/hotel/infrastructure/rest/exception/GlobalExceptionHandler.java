@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -51,5 +52,16 @@ public class GlobalExceptionHandler {
         body.put("validationErrors", errors);
 
         return ResponseEntity.badRequest().body(body);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Void> handleMethodArgumentTypeMismatch(
+            MethodArgumentTypeMismatchException ex) {
+
+        if ("searchId".equals(ex.getName())) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }
