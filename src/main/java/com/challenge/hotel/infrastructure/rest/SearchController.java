@@ -13,7 +13,6 @@ import com.challenge.hotel.infrastructure.rest.dto.SearchResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import jakarta.validation.Valid;
@@ -46,16 +45,14 @@ public class SearchController {
             summary = "Create a hotel search",
             description = "Creates a search identifier and publishes the search asynchronously to Kafka."
     )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "202",
-                    description = "Search accepted"
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Invalid request"
-            )
-    })
+    @ApiResponse(
+            responseCode = "202",
+            description = "Search accepted"
+    )
+    @ApiResponse(
+            responseCode = "400",
+            description = "Invalid request"
+    )
     public ResponseEntity<SearchResponseDTO> createSearch(
             @Valid @RequestBody SearchRequestDTO request
     ) {
@@ -78,16 +75,14 @@ public class SearchController {
             summary = "Count equivalent searches",
             description = "Returns how many persisted searches match the search identified by searchId."
     )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Count successfully returned"
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Search identifier not found"
-            )
-    })
+    @ApiResponse(
+            responseCode = "200",
+            description = "Count successfully returned"
+    )
+    @ApiResponse(
+            responseCode = "404",
+            description = "Search identifier not found"
+    )
     public ResponseEntity<SearchCountResponseDTO> count(
             @Parameter(
                     description = "Identifier returned by POST /search",
