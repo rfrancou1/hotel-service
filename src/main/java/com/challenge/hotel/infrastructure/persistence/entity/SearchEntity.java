@@ -3,6 +3,7 @@ package com.challenge.hotel.infrastructure.persistence.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -12,7 +13,15 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "hotel_search")
+@Table(
+        name = "hotel_search",
+        indexes = {
+                @Index(
+                        name = "idx_hotel_search_matching",
+                        columnList = "hotel_id, check_in, check_out, ages"
+                )
+        }
+)
 public class SearchEntity {
 
     @Id
