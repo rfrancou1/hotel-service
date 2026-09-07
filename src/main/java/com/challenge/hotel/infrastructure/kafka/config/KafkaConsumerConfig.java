@@ -29,6 +29,8 @@ public class KafkaConsumerConfig {
         factory.getContainerProperties()
                 .setListenerTaskExecutor(executor);
 
+        factory.setConcurrency(3);
+
         return factory;
     }
 }
